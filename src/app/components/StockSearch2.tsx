@@ -90,8 +90,8 @@ const StockSearch2 = () => {
 
       {!(stockData == null) && !stockData?.["Global Quote"]?.["01. symbol"] && (
         <p className="mt-2 text-red-500">
-          This API function does not exist in this free API or you may write
-          wrong
+          The requested input does not exist in this free API or you may have
+          entered incorrect information!
         </p>
       )}
 
