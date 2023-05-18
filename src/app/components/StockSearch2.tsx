@@ -63,6 +63,10 @@ const StockSearch2 = () => {
 
     if (stockData?.["Global Quote"]?.["01. symbol"] && !favoriteTrue) {
       setFavoriteStocks((p) => [...p, stockData]);
+      localStorage.setItem(
+        "favoriteStocks",
+        JSON.stringify([...favoriteStocks, stockData])
+      );
     }
   }
   console.log("favoriteStocks-", favoriteStocks);

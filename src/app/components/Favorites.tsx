@@ -2,7 +2,7 @@
 "use client";
 import { favoriteStocksAtom } from "../store/atom";
 import { useAtom } from "jotai";
-import React from "react";
+import React, { useEffect } from "react";
 import StockCard from "./StockCard";
 import { StockData } from "./StockSearch2";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -13,9 +13,20 @@ export default function Favorites({}: Props) {
   const [animationParent] = useAutoAnimate();
   const [favoriteStocks, setFavoriteStocks] = useAtom(favoriteStocksAtom);
 
+  useEffect(() => {
+    const storedFavoriteStocks = localStorage.getItem("favoriteStocks");
+    const parsedFavoriteStocks = storedFavoriteStocks
+      ? JSON.parse(storedFavoriteStocks)
+      : [];
+
+    // Updating the state
+    setFavoriteStocks(parsedFavoriteStocks);
+  }, [favoriteStocks]);
+
   function handleRemoveFavorite(data: StockData) {
     const updatedData = favoriteStocks.filter((item) => item !== data);
     setFavoriteStocks(updatedData);
+    localStorage.setItem("favoriteStocks", JSON.stringify(updatedData));
   }
 
   return (
